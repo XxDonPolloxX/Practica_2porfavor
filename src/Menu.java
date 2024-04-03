@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Menu {
     private Scanner sc = new Scanner(System.in);
-    private ArrayCola corredores = new ArrayCola<Carrera>();
+    private ArrayCola<Corredor> corredores = new ArrayCola<Corredor>();
     private Carrera carrera;
     public void datosCarrera(){
         String nombre, poblacion, fecha;
@@ -21,18 +21,40 @@ public class Menu {
     }
 
     public void regDatosCor(){
+        String nombre, tiempoaux;
+        int dorsal, hora, min, seg;
         System.out.println("Introduzca el nombre del corredor que desea registrar:");
-        String nombre = sc.nextLine();
+        sc.nextLine();
+        nombre = sc.nextLine();
         System.out.println("Introduzca el dorsal del corredor:");
-        int dorsal = sc.nextInt();
+        dorsal = sc.nextInt();
+        sc.nextLine();
         System.out.println("Introduzca el tiempo que tardo el corredor en terminar la carrera, en formato (HH:MM:SS):");
-        String tiempoaux = sc.nextLine();
+        tiempoaux = sc.nextLine();
         String[] tiempoArray = tiempoaux.split(":");
-        int hora = Integer.parseInt(tiempoArray[0]);
-        int min = Integer.parseInt(tiempoArray[1]);
-        int seg = Integer.parseInt(tiempoArray[2]);
+        hora = Integer.parseInt(tiempoArray[0]);
+        min = Integer.parseInt(tiempoArray[1]);
+        seg = Integer.parseInt(tiempoArray[2]);
         String tiempo = hora + ":" + min + ":" + seg;
         Corredor corredor = new Corredor(nombre, dorsal, tiempo);
+        corredores.encolar(corredor);
     }
-    
+    public void mostrarDatosCorredor(){
+        String nombre;
+        Corredor c;
+        ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
+        System.out.println("Introduzca el nombre del corredor a buscar: ");
+        nombre = sc.nextLine();
+        while(!corredores.esVacia()){
+            c = corredores.desencolar();
+            if(c.getNombre().equals(nombre)){
+                System.out.println("INFORMACION DE UN CORREDOR");
+                System.out.println("Dorsal \t Corredor/a \t Tiempo Corredor/a");
+                System.out.println(c.getDorsal() + "\t" + c.getNombre() + "\t" + c.getTiempo());
+            }
+            aux.encolar(c);
+        }
+        corredores = aux;
+    }
+
 }
