@@ -69,5 +69,24 @@ public class Menu {
         }
         corredores = aux;
     }
+    public void clasificaion(){
+        ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
+        Corredor c;
+        aux.encolar(corredores.primero());
+        while(!corredores.esVacia()){
+            c = corredores.desencolar();
+            if(c.getTiempo()>(aux.primero().getTiempo())){
+                aux.encolar(c);
+                for(int i=0; i<aux.getTallaActual()-1;i++){
+                    aux.encolar(aux.desencolar());
+                }
+            }
+            else{
+
+            }
+
+
+        }
+    }
 
 }
