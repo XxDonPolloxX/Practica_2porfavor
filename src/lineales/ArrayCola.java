@@ -3,6 +3,7 @@ package lineales;
 import modelos.Cola;
 
 import java.lang.reflect.Array;
+import java.util.Scanner;
 
 public class ArrayCola<E> implements Cola<E> {
     protected E elArray[];
@@ -59,4 +60,6 @@ public class ArrayCola<E> implements Cola<E> {
         primero = 0;
         fin = tallaActual -1;
     }
+
+
 }
