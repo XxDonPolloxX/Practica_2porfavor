@@ -56,5 +56,18 @@ public class Menu {
         }
         corredores = aux;
     }
+    public void listadoTiempCarrera(){
+        Corredor c;
+        System.out.println("LISTADO DE TIEMPOS DE CARRERA (sin ordenar)");
+        System.out.println("Dorsal \t Corredor/a \t Tiempo Corredor/a");
+        System.out.println("--------------------------------------------");
+        ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
+        while (!corredores.esVacia()){
+            c = corredores.desencolar();
+            System.out.println(c.getDorsal() + "\t" + c.getNombre() + "\t" + c.getTiempo());
+            aux.encolar(c);
+        }
+        corredores = aux;
+    }
 
 }
