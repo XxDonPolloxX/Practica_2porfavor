@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="554f4a15-27fe-40c9-9258-2db89723f235" name="Changes" comment="fesdr">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lineales/ArrayCola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lineales/ArrayCola.java" afterDir="false" />
-    </list>
+    <list default="true" id="554f4a15-27fe-40c9-9258-2db89723f235" name="Changes" comment="lamentable2" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,7 +109,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712162541297</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="lamentable2">
+      <option name="closed" value="true" />
+      <created>1712166939643</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712166939643</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +125,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fesdr" />
-    <option name="LAST_COMMIT_MESSAGE" value="fesdr" />
+    <MESSAGE value="lamentable2" />
+    <option name="LAST_COMMIT_MESSAGE" value="lamentable2" />
   </component>
 </project>
