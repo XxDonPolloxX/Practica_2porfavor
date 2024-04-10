@@ -1,10 +1,10 @@
 import lineales.ArrayCola;
 
-import java.security.cert.CertPath;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAmount;
 import java.util.Scanner;
-import java.time.*;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.Duration.*;
 
 public class Menu {
     private Scanner sc = new Scanner(System.in);
@@ -100,9 +100,31 @@ public class Menu {
             aux.encolar(aux.desencolar());
         }
         corredores=aux;
-        System.out.println(aux.toString());
+        System.out.println(toStringClasificacion(aux));
     }
+    public String toStringClasificacion(ArrayCola<Corredor> aux){
 
+        Corredor c, primero;
+        LocalTime tiempoCorredor;
+        LocalTime h, m, s;
+        primero=aux.primero();
+        String res="";
+        while(!aux.esVacia()){
+            c=aux.desencolar();
+            h=c.getTiempo().minus(primero.getTiempo().getHour(), ChronoUnit.HOURS);
+            m=c.getTiempo().minus(primero.getTiempo().getMinute(), ChronoUnit.MINUTES);
+            s=c.getTiempo().minus(primero.getTiempo().getSecond(), ChronoUnit.SECONDS);
+/*
+            h=String.format("%02d", ChronoUnit.HOURS.between(primero.getTiempo(), c.getTiempo()));
+            m=String.format("%02d", ChronoUnit.MINUTES.between(primero.getTiempo(), c.getTiempo()));
+            s=String.format("%02d", ChronoUnit.SECONDS.between(primero.getTiempo(), c.getTiempo()));
+            tiempoCorredor=LocalTime.parse(h+":"+m+":"+s);
+            */
+            res=res+c.getNombre()+"\t"+c.getDorsal()+"\t"+h.getHour()+":"+m.getMinute()+":"+s.getSecond()+"\n";
+
+        }
+        return res;
+    }
     public void resDatCarrera(){
         System.out.println("-----------------------------------------------------------------------------------");
         System.out.println("\t\t\t CARRERA");
@@ -137,7 +159,7 @@ public class Menu {
                 aux.encolar(c);
                 ganador = c;
             }else{
-            aux.encolar(corredores.desencolar());
+                aux.encolar(corredores.desencolar());
             }
             corredores = aux;
         }
@@ -168,4 +190,6 @@ public class Menu {
         media = LocalTime.of(hora2, minuto2, segundo2);
         return media;
     }
+
+
 }
