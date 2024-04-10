@@ -71,22 +71,33 @@ public class Menu {
     }
     public void clasificaion(){
         ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
-        Corredor c;
-        aux.encolar(corredores.primero());
+        Corredor c, maximo;
+        aux.encolar(corredores.desencolar());
+        maximo=aux.primero();
         while(!corredores.esVacia()){
             c = corredores.desencolar();
-            if(c.getTiempo()>(aux.primero().getTiempo())){
+            if(c.getTiempo()>=maximo.getTiempo()){
                 aux.encolar(c);
-                for(int i=0; i<aux.getTallaActual()-1;i++){
+                maximo=c;
+                do{
+                    aux.encolar(aux.desencolar());
+                }while(aux.primero()!=maximo);
+            }
+            else {
+                if (c.getTiempo() > (aux.primero().getTiempo())) {
+                    aux.encolar(c);
+                }
+                else {
                     aux.encolar(aux.desencolar());
                 }
-            }
-            else{
-
             }
 
 
         }
+        while(aux.primero()!=maximo){
+            aux.encolar(aux.desencolar());
+        }
+        corredores=aux;
     }
 
 }
