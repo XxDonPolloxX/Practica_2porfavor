@@ -37,6 +37,7 @@ public class Menu {
         tiempo = LocalTime.parse(tiempoaux, formatter);
         Corredor corredor = new Corredor(nombre, dorsal, tiempo);
         corredores.encolar(corredor);
+
     }
     public void mostrarDatosCorredor(){
         String nombre;
