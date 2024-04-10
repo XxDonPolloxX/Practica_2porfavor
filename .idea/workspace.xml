@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="554f4a15-27fe-40c9-9258-2db89723f235" name="Changes" comment="fesdr">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Corredor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Corredor.java" afterDir="false" />
+    <list default="true" id="554f4a15-27fe-40c9-9258-2db89723f235" name="Changes" comment="tiempo">
       <change beforePath="$PROJECT_DIR$/src/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Menu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,6 +79,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fesdr" />
-    <option name="LAST_COMMIT_MESSAGE" value="fesdr" />
+    <MESSAGE value="tiempo" />
+    <option name="LAST_COMMIT_MESSAGE" value="tiempo" />
   </component>
 </project>
