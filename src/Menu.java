@@ -1,7 +1,10 @@
 import lineales.ArrayCola;
+
+import java.security.cert.CertPath;
 import java.util.Scanner;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.Duration.*;
 
 public class Menu {
     private Scanner sc = new Scanner(System.in);
@@ -100,4 +103,69 @@ public class Menu {
         System.out.println(aux.toString());
     }
 
+    public void resDatCarrera(){
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.println("\t\t\t CARRERA");
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.println("Carrera:   " + carrera.getNombre());
+        System.out.println("Población: " + carrera.getPoblacion());
+        System.out.println("Fecha:     " + carrera.getFecha());
+        System.out.println("Distancia: " + carrera.getDistancia());
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.println("\t\t\t RESUMEN FINAL");
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.println("-Numero de corredores participantes en la carrera:" + numCorredores());
+        Corredor ganador = buscarGanador();
+        System.out.println("\n-Vencedor/a de la carrera: " + ganador.getNombre() + "(Dorsal " + ganador.getDorsal() + ")  -->  Tiempo total: " + ganador.getTiempo());
+        System.out.println("\n-Tiempo medio empleado por los corredores: " + tiempoMedio());
+    }
+    public int numCorredores(){
+        int num_Corr = 0;
+        while (!corredores.esVacia()){
+            num_Corr++;
+
+        }
+        return num_Corr;
+    }
+    public Corredor buscarGanador(){
+        Corredor c;
+        Corredor ganador = corredores.primero();
+        ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
+        while(!corredores.esVacia()){
+            c = corredores.desencolar();
+            if(c.getTiempo().compareTo(ganador.getTiempo())<0){
+                aux.encolar(c);
+                ganador = c;
+            }else{
+            aux.encolar(corredores.desencolar());
+            }
+            corredores = aux;
+        }
+        return ganador;
+    }
+    public LocalTime tiempoMedio(){
+        LocalTime media = LocalTime.of(0,0,0);
+        Corredor c;
+        ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
+        while (!corredores.esVacia()){
+            c = corredores.desencolar();
+            media = media.plusHours(c.getTiempo().getHour());
+            media = media.plusMinutes(c.getTiempo().getMinute());
+            media = media.plusSeconds(c.getTiempo().getSecond());
+            aux.encolar(c);
+        }
+        corredores = aux;
+        int hora1,minuto1,segundo1,hora2, minuto2, segundo2, dividendo, mediaaux;
+        hora1 = media.getHour()*3600;
+        minuto1 = media.getMinute()*60;
+        segundo1 = media.getSecond();
+        mediaaux = hora1 + minuto1 + segundo1;
+        mediaaux = mediaaux/numCorredores();
+        segundo2 = mediaaux % 60;
+        dividendo = mediaaux / 60;
+        minuto2 =  dividendo % 60;
+        hora2 = dividendo / 60;
+        media = LocalTime.of(hora2, minuto2, segundo2);
+        return media;
+    }
 }
