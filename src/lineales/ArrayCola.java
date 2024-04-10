@@ -49,7 +49,6 @@ public class ArrayCola<E> implements Cola<E> {
             res += elArray[aux] + "";
         }
         return res;
-
     }
     public void duplicarArray(){
         E nuevo[] = (E[]) new Object[elArray.length*2];

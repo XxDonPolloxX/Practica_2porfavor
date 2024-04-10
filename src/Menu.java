@@ -25,12 +25,11 @@ public class Menu {
         String nombre, tiempoaux;
         LocalTime tiempo;
         int dorsal, hora, min, seg;
-        System.out.println("Introduzca el nombre del corredor que desea registrar:");
-        sc.nextLine();
-        nombre = sc.nextLine();
         System.out.println("Introduzca el dorsal del corredor:");
         dorsal = sc.nextInt();
         sc.nextLine();
+        System.out.println("Introduzca el nombre del corredor que desea registrar:");
+        nombre = sc.nextLine();
         System.out.println("Introduzca el tiempo que tardo el corredor en terminar la carrera, en formato (HH:MM:SS):");
         tiempoaux = sc.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -71,20 +70,20 @@ public class Menu {
     }
     public void clasificaion(){
         ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
-        Corredor c, maximo;
+        Corredor c, minimo;
         aux.encolar(corredores.desencolar());
-        maximo=aux.primero();
+        minimo=aux.primero();
         while(!corredores.esVacia()){
             c = corredores.desencolar();
-            if(c.getTiempo()>=maximo.getTiempo()){
+            if(c.getTiempo().compareTo(minimo.getTiempo())<=0){
                 aux.encolar(c);
-                maximo=c;
+                minimo=c;
                 do{
                     aux.encolar(aux.desencolar());
-                }while(aux.primero()!=maximo);
+                }while(aux.primero()!=minimo);
             }
             else {
-                if (c.getTiempo() > (aux.primero().getTiempo())) {
+                if (c.getTiempo().compareTo(aux.primero().getTiempo()) >= 0) {
                     aux.encolar(c);
                 }
                 else {
@@ -94,10 +93,11 @@ public class Menu {
 
 
         }
-        while(aux.primero()!=maximo){
+        while(aux.primero()!=minimo){
             aux.encolar(aux.desencolar());
         }
         corredores=aux;
+        System.out.println(aux.toString());
     }
 
 }
