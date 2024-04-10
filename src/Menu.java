@@ -1,6 +1,7 @@
 import lineales.ArrayCola;
-
 import java.util.Scanner;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Menu {
     private Scanner sc = new Scanner(System.in);
@@ -22,6 +23,7 @@ public class Menu {
 
     public void regDatosCor(){
         String nombre, tiempoaux;
+        LocalTime tiempo;
         int dorsal, hora, min, seg;
         System.out.println("Introduzca el nombre del corredor que desea registrar:");
         sc.nextLine();
@@ -31,11 +33,8 @@ public class Menu {
         sc.nextLine();
         System.out.println("Introduzca el tiempo que tardo el corredor en terminar la carrera, en formato (HH:MM:SS):");
         tiempoaux = sc.nextLine();
-        String[] tiempoArray = tiempoaux.split(":");
-        hora = Integer.parseInt(tiempoArray[0]);
-        min = Integer.parseInt(tiempoArray[1]);
-        seg = Integer.parseInt(tiempoArray[2]);
-        String tiempo = hora + ":" + min + ":" + seg;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        tiempo = LocalTime.parse(tiempoaux, formatter);
         Corredor corredor = new Corredor(nombre, dorsal, tiempo);
         corredores.encolar(corredor);
     }

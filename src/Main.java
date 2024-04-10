@@ -7,7 +7,6 @@ public class Main {
     Menu m = new Menu();
     m.datosCarrera();
     m.regDatosCor();
-    m.regDatosCor();
     m.mostrarDatosCorredor();
 
     }

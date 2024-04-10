@@ -1,8 +1,9 @@
+import java.time.LocalTime;
 public class Corredor {
     private String nombre;
     private int dorsal;
-    private String tiempo;
-    public Corredor(String nombre, int dorsal, String tiempo){
+    private LocalTime tiempo;
+    public Corredor(String nombre, int dorsal, LocalTime tiempo){
         this.nombre = nombre;
         this.dorsal = dorsal;
         this.tiempo = tiempo;
@@ -13,7 +14,7 @@ public class Corredor {
     public int getDorsal(){
         return dorsal;
     }
-    public String getTiempo(){
+    public LocalTime getTiempo(){
         return tiempo;
     }
 }
