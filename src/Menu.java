@@ -68,5 +68,35 @@ public class Menu {
         }
         corredores = aux;
     }
+    public void clasificaion(){
+        ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
+        Corredor c, maximo;
+        aux.encolar(corredores.desencolar());
+        maximo=aux.primero();
+        while(!corredores.esVacia()){
+            c = corredores.desencolar();
+            if(c.getTiempo()>=maximo.getTiempo()){
+                aux.encolar(c);
+                maximo=c;
+                do{
+                    aux.encolar(aux.desencolar());
+                }while(aux.primero()!=maximo);
+            }
+            else {
+                if (c.getTiempo() > (aux.primero().getTiempo())) {
+                    aux.encolar(c);
+                }
+                else {
+                    aux.encolar(aux.desencolar());
+                }
+            }
+
+
+        }
+        while(aux.primero()!=maximo){
+            aux.encolar(aux.desencolar());
+        }
+        corredores=aux;
+    }
 
 }

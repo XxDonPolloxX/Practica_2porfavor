@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class ArrayCola<E> implements Cola<E> {
     protected E elArray[];
-    Scanner sc = new Scanner(System.in);
     protected int fin, primero, tallaActual;
     protected static final int CAPACIDAD_POR_DEFECTO = 200;
     public ArrayCola(){
@@ -60,5 +59,8 @@ public class ArrayCola<E> implements Cola<E> {
         elArray = nuevo;
         primero = 0;
         fin = tallaActual -1;
+    }
+    public int getTallaActual(){
+        return tallaActual;
     }
 }
