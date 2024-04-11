@@ -9,6 +9,6 @@ public class Main {
     m.regDatosCor();
     m.regDatosCor();
     m.regDatosCor();
-    m.resDatCarrera();
+    m.clasificaion();
     }
 }

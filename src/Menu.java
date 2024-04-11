@@ -105,22 +105,17 @@ public class Menu {
     public String toStringClasificacion(ArrayCola<Corredor> aux){
 
         Corredor c, primero;
+        int segundos, segundosPrimero;
         LocalTime tiempoCorredor;
-        LocalTime h, m, s;
         primero=aux.primero();
         String res="";
+        segundosPrimero=pasarASegundos(primero.getTiempo());
         while(!aux.esVacia()){
             c=aux.desencolar();
-            h=c.getTiempo().minus(primero.getTiempo().getHour(), ChronoUnit.HOURS);
-            m=c.getTiempo().minus(primero.getTiempo().getMinute(), ChronoUnit.MINUTES);
-            s=c.getTiempo().minus(primero.getTiempo().getSecond(), ChronoUnit.SECONDS);
-/*
-            h=String.format("%02d", ChronoUnit.HOURS.between(primero.getTiempo(), c.getTiempo()));
-            m=String.format("%02d", ChronoUnit.MINUTES.between(primero.getTiempo(), c.getTiempo()));
-            s=String.format("%02d", ChronoUnit.SECONDS.between(primero.getTiempo(), c.getTiempo()));
-            tiempoCorredor=LocalTime.parse(h+":"+m+":"+s);
-            */
-            res=res+c.getNombre()+"\t"+c.getDorsal()+"\t"+h.getHour()+":"+m.getMinute()+":"+s.getSecond()+"\n";
+            segundos=pasarASegundos(c.getTiempo());
+            segundos=segundos-segundosPrimero;
+            tiempoCorredor=pasarATiempo(segundos);
+            res=res+c.getNombre()+"\t"+c.getDorsal()+"\t"+tiempoCorredor+"\n";
 
         }
         return res;
@@ -189,6 +184,23 @@ public class Menu {
         hora2 = dividendo / 60;
         media = LocalTime.of(hora2, minuto2, segundo2);
         return media;
+    }
+    public int pasarASegundos(LocalTime t){
+        int seg;
+        seg=t.getSecond()+t.getMinute()*60+t.getHour()*3600;
+        return seg;
+    }
+    public LocalTime pasarATiempo(int segundos){
+        LocalTime t;
+        String horas, minutos, segundosString;
+        String tiempoaux;
+        horas=String.format("%02d", segundos/3600);
+        segundosString=String.format("%02d",segundos%60);
+        minutos=String.format("%02d",(segundos/60)%60);
+        tiempoaux=horas+":"+minutos+":"+segundosString;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        t = LocalTime.parse(tiempoaux, formatter);
+        return t;
     }
 
 
