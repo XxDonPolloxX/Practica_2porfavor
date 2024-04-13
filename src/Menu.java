@@ -154,53 +154,56 @@ public class Menu {
         System.out.println("\n-Vencedor/a de la carrera: " + ganador.getNombre() + "(Dorsal " + ganador.getDorsal() + ")  -->  Tiempo total: " + ganador.getTiempo());
         System.out.println("\n-Tiempo medio empleado por los corredores: " + tiempoMedio());
     }
+    //Crea un metodo que devuelva el numero total de corredores
     public int numCorredores(){
-        int num_Corr = 0;
-        while (!corredores.esVacia()){
-            num_Corr++;
+        int num=0;
+        Corredor c;
+        Cola<Corredor> aux = comprobarOpcion();
+        while(!corredores.esVacia()){
+            c = corredores.desencolar();
+            num++;
+            aux.encolar(c);
         }
-        return num_Corr;
+        corredores = aux;
+        return num;
     }
     public Corredor buscarGanador(){
-        Corredor c;
-        Corredor ganador = corredores.primero();
+        Corredor c, ganador;
         Cola<Corredor> aux = comprobarOpcion();
+        aux.encolar(corredores.desencolar());
+        ganador = aux.primero();
         while(!corredores.esVacia()){
             c = corredores.desencolar();
             if(c.getTiempo().compareTo(ganador.getTiempo())<0){
                 aux.encolar(c);
                 ganador = c;
-            }else{
-                aux.encolar(corredores.desencolar());
+                do{
+                    aux.encolar(aux.desencolar());
+                }while(aux.primero()!=ganador);
             }
-            corredores = aux;
+            else{
+                aux.encolar(c);
+            }
         }
+        while(aux.primero()!=ganador){
+            aux.encolar(aux.desencolar());
+        }
+        corredores = aux;
         return ganador;
     }
     public LocalTime tiempoMedio(){
-        LocalTime media = LocalTime.of(0,0,0);
         Corredor c;
+        int numCorredores = numCorredores();
+        int segundosTotales = 0;
         Cola<Corredor> aux = comprobarOpcion();
-        while (!corredores.esVacia()){
+        while(!corredores.esVacia()){
             c = corredores.desencolar();
-            media = media.plusHours(c.getTiempo().getHour());
-            media = media.plusMinutes(c.getTiempo().getMinute());
-            media = media.plusSeconds(c.getTiempo().getSecond());
+            segundosTotales += pasarASegundos(c.getTiempo());
             aux.encolar(c);
         }
         corredores = aux;
-        int hora1,minuto1,segundo1,hora2, minuto2, segundo2, dividendo, mediaaux;
-        hora1 = media.getHour()*3600;
-        minuto1 = media.getMinute()*60;
-        segundo1 = media.getSecond();
-        mediaaux = hora1 + minuto1 + segundo1;
-        mediaaux = mediaaux/numCorredores();
-        segundo2 = mediaaux % 60;
-        dividendo = mediaaux / 60;
-        minuto2 =  dividendo % 60;
-        hora2 = dividendo / 60;
-        media = LocalTime.of(hora2, minuto2, segundo2);
-        return media;
+        int segundosMedios = segundosTotales / numCorredores;
+        return pasarATiempo(segundosMedios);
     }
     public int pasarASegundos(LocalTime t){
         int seg;
