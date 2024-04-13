@@ -13,8 +13,51 @@ public class Menu {
     private Cola<Corredor> corredores;
     private Carrera carrera;
     private int opcion;
-    public Menu(int opcion){
+
+    public void ejecuta(){
+        int opcionMenu;
+        Scanner scMenu = new Scanner(System.in);
+        System.out.println("Selecciona el tipo de Cola:\n0: Array\n1:Lista Enlazada");
+        opcion = scMenu.nextInt();
         corredores=comprobarOpcion();
+        do {
+            System.out.println("MENÚ PRINCIPAL\n===============\n");
+            System.out.println("1.- Registrar datos generales de la carrera");
+            System.out.println("2.- Registrar datos de los corredores");
+            System.out.println("3.- Mostrar datos de un corredor");
+            System.out.println("4.- Listado de tiempos de carrera (sin ordenar)");
+            System.out.println("5.- Clasificación general");
+            System.out.println("6.- Mostrar resumen final");
+            System.out.println("0.- Salir");
+            opcionMenu = scMenu.nextInt();
+            switch (opcionMenu) {
+                case 1:
+                    datosCarrera();
+                    break;
+                case 2:
+                    regDatosCor();
+                    break;
+                case 3:
+                    mostrarDatosCorredor();
+                    break;
+                case 4:
+                    listadoTiempCarrera();
+                    break;
+                case 5:
+                    clasificaion();
+                    break;
+                case 6:
+                    resDatCarrera();
+                    break;
+                case 0:
+                    System.out.println("Gracias por usar la aplicación...");
+                    break;
+                default:
+                    System.out.println("Opcion no válida");
+                    break;
+
+            }
+        }while (opcionMenu!=0);
     }
     public Cola<Corredor> comprobarOpcion(){
         Cola<Corredor> cola;
@@ -71,8 +114,8 @@ public class Menu {
                 System.out.println("INFORMACION DE UN CORREDOR");
                 System.out.println("Dorsal \t Corredor/a \t Tiempo Corredor/a");
                 System.out.println(c.getDorsal() + "\t" + c.getNombre() + "\t" + c.getTiempo());
-                aux.encolar(c);
             }
+            aux.encolar(c);
         }
         corredores = aux;
     }
@@ -90,12 +133,22 @@ public class Menu {
         corredores = aux;
     }
     public void clasificaion(){
-        Cola<Corredor> aux = comprobarOpcion();
+        corredores=ordenarAscendente(corredores, opcion);
+        System.out.println(toStringClasificacion(corredores));
+    }
+    public static Cola<Corredor> ordenarAscendente(Cola<Corredor> colaOrdenar, int opcion){
+        Cola<Corredor> aux;
+        if(opcion==0){
+            aux = new ArrayCola<Corredor>();
+        }
+        else {
+            aux = new LECola<Corredor>();
+        }
         Corredor c, minimo;
-        aux.encolar(corredores.desencolar());
+        aux.encolar(colaOrdenar.desencolar());
         minimo=aux.primero();
-        while(!corredores.esVacia()){
-            c = corredores.desencolar();
+        while(!colaOrdenar.esVacia()){
+            c = colaOrdenar.desencolar();
             if(c.getTiempo().compareTo(minimo.getTiempo())<=0){
                 aux.encolar(c);
                 minimo=c;
@@ -117,11 +170,11 @@ public class Menu {
         while(aux.primero()!=minimo){
             aux.encolar(aux.desencolar());
         }
-        corredores=aux;
-        System.out.println(toStringClasificacion(aux));
+        return aux;
     }
     public String toStringClasificacion(Cola<Corredor> aux){
 
+        Cola<Corredor> aux2 = comprobarOpcion();
         Corredor c, primero;
         int segundos, segundosPrimero;
         LocalTime tiempoCorredor;
@@ -134,8 +187,9 @@ public class Menu {
             segundos=segundos-segundosPrimero;
             tiempoCorredor=pasarATiempo(segundos);
             res=res+c.getNombre()+"\t"+c.getDorsal()+"\t"+tiempoCorredor+"\n";
-
+            aux2.encolar(c);
         }
+        corredores=aux2;
         return res;
     }
     public void resDatCarrera(){
