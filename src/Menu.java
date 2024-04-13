@@ -1,4 +1,6 @@
 import lineales.ArrayCola;
+import lineales.LECola;
+import modelos.Cola;
 
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAmount;
@@ -8,8 +10,23 @@ import java.time.format.DateTimeFormatter;
 
 public class Menu {
     private Scanner sc = new Scanner(System.in);
-    private ArrayCola<Corredor> corredores = new ArrayCola<Corredor>();
+    private Cola<Corredor> corredores;
     private Carrera carrera;
+    private int opcion;
+    public Menu(int opcion){
+        corredores=comprobarOpcion();
+    }
+    public Cola<Corredor> comprobarOpcion(){
+        Cola<Corredor> cola;
+        if(opcion==0){
+            cola = new ArrayCola<Corredor>();
+        }
+        else{
+            cola = new LECola<Corredor>();
+        }
+        return cola;
+    }
+
     public void datosCarrera(){
         String nombre, poblacion, fecha;
         float distancia;
@@ -44,7 +61,8 @@ public class Menu {
     public void mostrarDatosCorredor(){
         String nombre;
         Corredor c;
-        ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
+        Cola<Corredor> aux;
+        aux = comprobarOpcion();
         System.out.println("Introduzca el nombre del corredor a buscar: ");
         nombre = sc.nextLine();
         while(!corredores.esVacia()){
@@ -53,8 +71,8 @@ public class Menu {
                 System.out.println("INFORMACION DE UN CORREDOR");
                 System.out.println("Dorsal \t Corredor/a \t Tiempo Corredor/a");
                 System.out.println(c.getDorsal() + "\t" + c.getNombre() + "\t" + c.getTiempo());
+                aux.encolar(c);
             }
-            aux.encolar(c);
         }
         corredores = aux;
     }
@@ -63,7 +81,7 @@ public class Menu {
         System.out.println("LISTADO DE TIEMPOS DE CARRERA (sin ordenar)");
         System.out.println("Dorsal \t Corredor/a \t Tiempo Corredor/a");
         System.out.println("--------------------------------------------");
-        ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
+        Cola<Corredor> aux = comprobarOpcion();
         while (!corredores.esVacia()){
             c = corredores.desencolar();
             System.out.println(c.getDorsal() + "\t" + c.getNombre() + "\t" + c.getTiempo());
@@ -72,7 +90,7 @@ public class Menu {
         corredores = aux;
     }
     public void clasificaion(){
-        ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
+        Cola<Corredor> aux = comprobarOpcion();
         Corredor c, minimo;
         aux.encolar(corredores.desencolar());
         minimo=aux.primero();
@@ -102,7 +120,7 @@ public class Menu {
         corredores=aux;
         System.out.println(toStringClasificacion(aux));
     }
-    public String toStringClasificacion(ArrayCola<Corredor> aux){
+    public String toStringClasificacion(Cola<Corredor> aux){
 
         Corredor c, primero;
         int segundos, segundosPrimero;
@@ -140,14 +158,13 @@ public class Menu {
         int num_Corr = 0;
         while (!corredores.esVacia()){
             num_Corr++;
-
         }
         return num_Corr;
     }
     public Corredor buscarGanador(){
         Corredor c;
         Corredor ganador = corredores.primero();
-        ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
+        Cola<Corredor> aux = comprobarOpcion();
         while(!corredores.esVacia()){
             c = corredores.desencolar();
             if(c.getTiempo().compareTo(ganador.getTiempo())<0){
@@ -163,7 +180,7 @@ public class Menu {
     public LocalTime tiempoMedio(){
         LocalTime media = LocalTime.of(0,0,0);
         Corredor c;
-        ArrayCola<Corredor> aux = new ArrayCola<Corredor>();
+        Cola<Corredor> aux = comprobarOpcion();
         while (!corredores.esVacia()){
             c = corredores.desencolar();
             media = media.plusHours(c.getTiempo().getHour());
