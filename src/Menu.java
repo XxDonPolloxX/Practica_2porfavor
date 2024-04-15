@@ -1,7 +1,6 @@
 import lineales.ArrayCola;
 import lineales.LECola;
 import modelos.Cola;
-
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAmount;
 import java.util.Scanner;
@@ -17,7 +16,7 @@ public class Menu {
     public void ejecuta(){
         int opcionMenu;
         Scanner scMenu = new Scanner(System.in);
-        System.out.println("Selecciona el tipo de Cola:\n0: Array\n1:Lista Enlazada");
+        System.out.println("Selecciona el tipo de Cola:\n0: Array\n1: Lista Enlazada");
         opcion = scMenu.nextInt();
         corredores=comprobarOpcion();
         do {
@@ -35,19 +34,56 @@ public class Menu {
                     datosCarrera();
                     break;
                 case 2:
-                    regDatosCor();
+                    if(carrera==null){
+                        System.out.println("ERROR LA CARRERA SE DEBE CREAR ANTES DE EJECUTAR ESTA OPCION");
+                    }
+                    else{
+                        regDatosCor();
+                    }
                     break;
                 case 3:
-                    mostrarDatosCorredor();
+                    if(carrera==null){
+                        System.out.println("ERROR LA CARRERA SE DEBE CREAR ANTES DE EJECUTAR ESTA OPCION");
+                    }
+                    if(corredores==null){
+                        System.out.println("ERROR NO SE HA CREADO LA COLA");
+                    }
+                    else{
+                        mostrarDatosCorredor();
+                    }
                     break;
                 case 4:
-                    listadoTiempCarrera();
+                    if(carrera==null){
+                        System.out.println("ERROR LA CARRERA SE DEBE CREAR ANTES DE EJECUTAR ESTA OPCION");
+                    }
+                    if(corredores==null){
+                        System.out.println("ERROR NO SE HA CREADO LA COLA");
+                    }
+                    else{
+                        listadoTiempCarrera();
+                    }
                     break;
                 case 5:
-                    clasificaion();
+                    if(carrera==null){
+                        System.out.println("ERROR LA CARRERA SE DEBE CREAR ANTES DE EJECUTAR ESTA OPCION");
+                    }
+                    if(corredores==null){
+                        System.out.println("ERROR NO SE HA CREADO LA COLA");
+                    }
+                    else{
+                        clasificaion();
+                    }
                     break;
                 case 6:
-                    resDatCarrera();
+                    if(carrera==null){
+                        System.out.println("ERROR LA CARRERA SE DEBE CREAR ANTES DE EJECUTAR ESTA OPCION");
+                    }
+                    if(corredores==null){
+                        System.out.println("ERROR NO SE HA CREADO LA COLA");
+                    }
+                    else{
+                        resDatCarrera();
+                    }
                     break;
                 case 0:
                     System.out.println("Gracias por usar la aplicación...");
@@ -164,8 +200,6 @@ public class Menu {
                     aux.encolar(aux.desencolar());
                 }
             }
-
-
         }
         while(aux.primero()!=minimo){
             aux.encolar(aux.desencolar());
@@ -173,7 +207,6 @@ public class Menu {
         return aux;
     }
     public String toStringClasificacion(Cola<Corredor> aux){
-
         Cola<Corredor> aux2 = comprobarOpcion();
         Corredor c, primero;
         int segundos, segundosPrimero;
