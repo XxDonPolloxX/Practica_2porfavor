@@ -53,7 +53,6 @@ public class Menu {
                             mostrarDatosCorredor();
                         }
                     }
-
                     break;
                 case 4:
                     if(carrera==null){
@@ -67,7 +66,6 @@ public class Menu {
                             listadoTiempCarrera();
                         }
                     }
-
                     break;
                 case 5:
                     if(carrera==null){
