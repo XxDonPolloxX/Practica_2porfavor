@@ -45,44 +45,54 @@ public class Menu {
                     if(carrera==null){
                         System.out.println("ERROR LA CARRERA SE DEBE CREAR ANTES DE EJECUTAR ESTA OPCION");
                     }
-                    if(corredores==null){
-                        System.out.println("ERROR NO SE HA CREADO LA COLA");
-                    }
                     else{
-                        mostrarDatosCorredor();
+                        if(corredores.esVacia()){
+                            System.out.println("ERROR NO SE HAN INTRODUCIDO CORREDORES");
+                        }
+                        else{
+                            mostrarDatosCorredor();
+                        }
                     }
+
                     break;
                 case 4:
                     if(carrera==null){
                         System.out.println("ERROR LA CARRERA SE DEBE CREAR ANTES DE EJECUTAR ESTA OPCION");
                     }
-                    if(corredores==null){
-                        System.out.println("ERROR NO SE HA CREADO LA COLA");
-                    }
                     else{
-                        listadoTiempCarrera();
+                        if(corredores.esVacia()){
+                            System.out.println("ERROR NO SE HAN INTRODUCIDO CORREDORES");
+                        }
+                        else{
+                            listadoTiempCarrera();
+                        }
                     }
+
                     break;
                 case 5:
                     if(carrera==null){
                         System.out.println("ERROR LA CARRERA SE DEBE CREAR ANTES DE EJECUTAR ESTA OPCION");
                     }
-                    if(corredores==null){
-                        System.out.println("ERROR NO SE HA CREADO LA COLA");
-                    }
                     else{
-                        clasificaion();
+                        if(corredores.esVacia()){
+                            System.out.println("ERROR NO SE HAN INTRODUCIDO CORREDORES");
+                        }
+                        else{
+                            clasificaion();
+                        }
                     }
                     break;
                 case 6:
                     if(carrera==null){
                         System.out.println("ERROR LA CARRERA SE DEBE CREAR ANTES DE EJECUTAR ESTA OPCION");
                     }
-                    if(corredores==null){
-                        System.out.println("ERROR NO SE HA CREADO LA COLA");
-                    }
                     else{
-                        resDatCarrera();
+                        if(corredores.esVacia()){
+                            System.out.println("ERROR NO SE HAN INTRODUCIDO CORREDORES");
+                        }
+                        else{
+                            resDatCarrera();
+                        }
                     }
                     break;
                 case 0:

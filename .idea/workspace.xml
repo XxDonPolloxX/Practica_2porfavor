@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="554f4a15-27fe-40c9-9258-2db89723f235" name="Changes" comment="lamentable2">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="554f4a15-27fe-40c9-9258-2db89723f235" name="Changes" comment="lamentable2" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -77,6 +75,7 @@
       <workItem from="1713000568248" duration="1901000" />
       <workItem from="1713007185849" duration="22000" />
       <workItem from="1713007219475" duration="1830000" />
+      <workItem from="1713203819204" duration="1886000" />
     </task>
     <task id="LOCAL-00001" summary="fesdr">
       <option name="closed" value="true" />
@@ -107,6 +106,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fesdr" />
