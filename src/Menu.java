@@ -182,30 +182,45 @@ public class Menu {
     }
     public static Cola<Corredor> ordenarAscendente(Cola<Corredor> colaOrdenar, int opcion){
         Cola<Corredor> aux;
+        boolean flag;
         if(opcion==0){
             aux = new ArrayCola<Corredor>();
         }
         else {
             aux = new LECola<Corredor>();
         }
-        Corredor c, minimo;
+        Corredor c, minimo, maximo;
         aux.encolar(colaOrdenar.desencolar());
         minimo=aux.primero();
+        maximo=aux.primero();
         while(!colaOrdenar.esVacia()){
             c = colaOrdenar.desencolar();
-            if(c.getTiempo().compareTo(minimo.getTiempo())<=0){
-                aux.encolar(c);
-                minimo=c;
-                do{
-                    aux.encolar(aux.desencolar());
-                }while(aux.primero()!=minimo);
-            }
-            else {
-                if (c.getTiempo().compareTo(aux.primero().getTiempo()) >= 0) {
+            flag = false;
+            while (!flag) {
+                if(c.getTiempo().compareTo(minimo.getTiempo())<=0){
                     aux.encolar(c);
+                    flag=true;
+                    minimo=c;
+                    do{
+                        aux.encolar(aux.desencolar());
+                    }while(aux.primero()!=minimo);
                 }
-                else {
-                    aux.encolar(aux.desencolar());
+                else if(c.getTiempo().compareTo(maximo.getTiempo()) <=0){
+                    if (c.getTiempo().compareTo(aux.primero().getTiempo()) <= 0) {
+                        aux.encolar(c);
+                        flag=true;
+                    }
+                    else {
+                        aux.encolar(aux.desencolar());
+                    }
+                }
+                else{
+                    do{
+                        aux.encolar(aux.desencolar());
+                    }while(aux.primero()!=minimo);
+                    aux.encolar(c);
+                    flag = true;
+                    maximo=c;
                 }
             }
         }
@@ -214,6 +229,7 @@ public class Menu {
         }
         return aux;
     }
+
     public String toStringClasificacion(Cola<Corredor> aux){
         Cola<Corredor> aux2 = comprobarOpcion();
         Corredor c, primero;

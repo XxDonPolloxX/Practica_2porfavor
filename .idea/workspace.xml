@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="554f4a15-27fe-40c9-9258-2db89723f235" name="Changes" comment="lamentable2">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Menu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,6 +79,7 @@
       <workItem from="1713007185849" duration="22000" />
       <workItem from="1713007219475" duration="1830000" />
       <workItem from="1713203819204" duration="2513000" />
+      <workItem from="1713252711444" duration="3903000" />
     </task>
     <task id="LOCAL-00001" summary="fesdr">
       <option name="closed" value="true" />
