@@ -16,7 +16,7 @@ public class Menu {
     public void ejecuta(){
         int opcionMenu;
         Scanner scMenu = new Scanner(System.in);
-        System.out.println("Selecciona el tipo de Cola:\n0: Array\n1: Lista Enlazada");
+        System.out.println("SELECCIONE EL TIPO DE COLA :\n0: Array\n1: Lista Enlazada");
         opcion = scMenu.nextInt();
         corredores=comprobarOpcion();
 
@@ -30,6 +30,7 @@ public class Menu {
             System.out.println("6.- Mostrar resumen final");
             System.out.println("0.- Salir");
             opcionMenu = scMenu.nextInt();
+
             switch (opcionMenu) {
                 case 1:
                     pausa();
