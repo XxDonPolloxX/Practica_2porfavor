@@ -19,6 +19,7 @@ public class Menu {
         System.out.println("Selecciona el tipo de Cola:\n0: Array\n1: Lista Enlazada");
         opcion = scMenu.nextInt();
         corredores=comprobarOpcion();
+
         do {
             System.out.println("MENÚ PRINCIPAL\n===============\n");
             System.out.println("1.- Registrar datos generales de la carrera");
@@ -31,14 +32,18 @@ public class Menu {
             opcionMenu = scMenu.nextInt();
             switch (opcionMenu) {
                 case 1:
+                    pausa();
                     datosCarrera();
+                    pausa();
                     break;
                 case 2:
                     if(carrera==null){
                         System.out.println("ERROR LA CARRERA SE DEBE CREAR ANTES DE EJECUTAR ESTA OPCION");
                     }
                     else{
+                        pausa();
                         regDatosCor();
+                        pausa();
                     }
                     break;
                 case 3:
@@ -50,7 +55,9 @@ public class Menu {
                             System.out.println("ERROR NO SE HAN INTRODUCIDO CORREDORES");
                         }
                         else{
+                            pausa();
                             mostrarDatosCorredor();
+                            pausa();
                         }
                     }
                     break;
@@ -63,7 +70,9 @@ public class Menu {
                             System.out.println("ERROR NO SE HAN INTRODUCIDO CORREDORES");
                         }
                         else{
+                            pausa();
                             listadoTiempCarrera();
+                            pausa();
                         }
                     }
                     break;
@@ -76,7 +85,9 @@ public class Menu {
                             System.out.println("ERROR NO SE HAN INTRODUCIDO CORREDORES");
                         }
                         else{
+                            pausa();
                             clasificaion();
+                            pausa();
                         }
                     }
                     break;
@@ -89,12 +100,15 @@ public class Menu {
                             System.out.println("ERROR NO SE HAN INTRODUCIDO CORREDORES");
                         }
                         else{
+                            pausa();
                             resDatCarrera();
+                            pausa();
                         }
                     }
                     break;
                 case 0:
                     System.out.println("Gracias por usar la aplicación...");
+                    pausa();
                     break;
                 default:
                     System.out.println("Opcion no válida");
@@ -117,28 +131,44 @@ public class Menu {
     public void datosCarrera(){
         String nombre, poblacion, fecha;
         float distancia;
+        System.out.println("REGISTRO DE DATOS DE LA CARRERA");
         System.out.println("Introduzca nombre de la carrera: ");
         nombre = sc.nextLine();
         System.out.println("Introduzca población de la carrera: ");
         poblacion = sc.nextLine();
         System.out.println("Introduzca fecha de la carrera: ");
         fecha = sc.nextLine();
-        System.out.println("Introduzca distancia de la carrera: ");
-        distancia = sc.nextFloat();
+        do {
+            System.out.println("Introduzca distancia de la carrera: ");
+            while (!sc.hasNextFloat()) {
+                System.out.println("ERROR: Debe introducir un número");
+                sc.next();
+            }
+            distancia = sc.nextFloat();
+            if(distancia<=0){
+                System.out.println("ERROR: La distancia debe ser mayor que 0");
+            }
+        } while (distancia <= 0);
         carrera = new Carrera(nombre, poblacion, fecha, distancia);
     }
 
     public void regDatosCor(){
         String nombre, tiempoaux;
         LocalTime tiempo;
-        int dorsal, hora, min, seg;
+        int dorsal;
+        System.out.println("REGISTRO DE DATOS DEL CORREDOR/A");
         System.out.println("Introduzca el dorsal del corredor:");
         dorsal = sc.nextInt();
         sc.nextLine();
         System.out.println("Introduzca el nombre del corredor que desea registrar:");
         nombre = sc.nextLine();
-        System.out.println("Introduzca el tiempo que tardo el corredor en terminar la carrera, en formato (HH:MM:SS):");
-        tiempoaux = sc.nextLine();
+        do {
+            System.out.println("Introduzca el tiempo que tardo el corredor en terminar la carrera, en formato (HH:MM:SS):");
+            tiempoaux = sc.nextLine();
+            if (!tiempoaux.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]")) {
+                System.out.println("ERROR: Formato de tiempo incorrecto");
+            }
+        }while (!tiempoaux.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         tiempo = LocalTime.parse(tiempoaux, formatter);
         Corredor corredor = new Corredor(nombre, dorsal, tiempo);
@@ -156,8 +186,9 @@ public class Menu {
             c = corredores.desencolar();
             if(c.getNombre().equals(nombre)){
                 System.out.println("INFORMACION DE UN CORREDOR");
-                System.out.println("Dorsal \t Corredor/a \t Tiempo Corredor/a");
-                System.out.println(c.getDorsal() + "\t" + c.getNombre() + "\t" + c.getTiempo());
+                System.out.println("Dorsal     Corredor/a           Tiempo Corredor/a");
+                System.out.println("--------------------------------------------");
+                System.out.printf("%-10s %-20s %-20s\n", c.getDorsal(), c.getNombre(), c.getTiempo());
             }
             aux.encolar(c);
         }
@@ -166,12 +197,12 @@ public class Menu {
     public void listadoTiempCarrera(){
         Corredor c;
         System.out.println("LISTADO DE TIEMPOS DE CARRERA (sin ordenar)");
-        System.out.println("Dorsal \t Corredor/a \t Tiempo Corredor/a");
+        System.out.println("Dorsal     Corredor/a           Tiempo Corredor/a");
         System.out.println("--------------------------------------------");
         Cola<Corredor> aux = comprobarOpcion();
         while (!corredores.esVacia()){
             c = corredores.desencolar();
-            System.out.println(c.getDorsal() + "\t" + c.getNombre() + "\t" + c.getTiempo());
+            System.out.printf("%-10s %-20s %-20s\n", c.getDorsal(), c.getNombre(), c.getTiempo());
             aux.encolar(c);
         }
         corredores = aux;
@@ -233,17 +264,21 @@ public class Menu {
     public String toStringClasificacion(Cola<Corredor> aux){
         Cola<Corredor> aux2 = comprobarOpcion();
         Corredor c, primero;
-        int segundos, segundosPrimero;
+        int segundos, segundosPrimero, posicion=0;
         LocalTime tiempoCorredor;
         primero=aux.primero();
         String res="";
         segundosPrimero=pasarASegundos(primero.getTiempo());
+        res += String.format("\t\t\tCLASIFICACION GENERAL\n");
+        res += String.format("%-10s %-20s %-20s %-20s %-25s\n", "Posicion", "Dorsal", "Corredor/a", "Tiempo Corredor/a", "Distancia de tiempo con el ganador/a");
+        res += "------------------------------------------------------------------------------------------------------------------------\n";
         while(!aux.esVacia()){
             c=aux.desencolar();
+            posicion++;
             segundos=pasarASegundos(c.getTiempo());
             segundos=segundos-segundosPrimero;
             tiempoCorredor=pasarATiempo(segundos);
-            res=res+c.getNombre()+"\t"+c.getDorsal()+"\t"+tiempoCorredor+"\n";
+            res += String.format("%-10s %-20s %-20s %-20s %-25s\n", posicion,c.getDorsal(), c.getNombre(),c.getTiempo(), tiempoCorredor);
             aux2.encolar(c);
         }
         corredores=aux2;
@@ -265,7 +300,6 @@ public class Menu {
         System.out.println("\n-Vencedor/a de la carrera: " + ganador.getNombre() + "(Dorsal " + ganador.getDorsal() + ")  -->  Tiempo total: " + ganador.getTiempo());
         System.out.println("\n-Tiempo medio empleado por los corredores: " + tiempoMedio());
     }
-    //Crea un metodo que devuelva el numero total de corredores
     public int numCorredores(){
         int num=0;
         Corredor c;
@@ -333,6 +367,8 @@ public class Menu {
         t = LocalTime.parse(tiempoaux, formatter);
         return t;
     }
-
-
+    public void pausa(){
+        System.out.println("Pulse una tecla para continuar...");
+        sc.nextLine();
+    }
 }
